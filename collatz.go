@@ -15,6 +15,19 @@ import (
 
 func main() {
 
-	
+	i := 7
+
+	for {
+		r = coll(i)
+	}
+
+}
+
+func coll(r int) int {
+	if r%2 == 0 {
+		r = r % 2
+	} else {
+		r = r*3 + 1
+	}
 
 }
