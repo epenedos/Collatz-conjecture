@@ -1,3 +1,5 @@
+package collatz
+
 import (
 	//    "os"
 	"fmt"
