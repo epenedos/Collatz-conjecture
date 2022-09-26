@@ -57,7 +57,7 @@ func httpserver(w http.ResponseWriter, r *http.Request) {
 
 	html = fmt.Sprint("<html lang='en'>")
 	w.Write([]byte(html))
-	html = fmt.Sprint("<head><title>ODF Storage Calculator </title> <link rel='stylesheet' href='/assets/style.css' /></head>")
+	html = fmt.Sprint("<head><title>Collatz Conjecture</title> <link rel='stylesheet' href='/assets/style.css' /></head>")
 	w.Write([]byte(html))
 
 	html = fmt.Sprint("<body>")
@@ -66,7 +66,7 @@ func httpserver(w http.ResponseWriter, r *http.Request) {
 	html = fmt.Sprint("<div class='fixed-header'>")
 	w.Write([]byte(html))
 
-	html = fmt.Sprint("<img id='logo' src='/assets/img/Product_Icon-Red_Hat-OpenShift-RGB.svg' width='75' height='75'> <span id='title'>OpenShift Data Foundation Calculator</span>")
+	html = fmt.Sprint("<img id='logo' src='/assets/img/collatz.png' width='75' height='75'> <span id='title'>Collatz Conjecture</span>")
 	w.Write([]byte(html))
 	html = fmt.Sprint("</div>")
 	w.Write([]byte(html))
@@ -75,10 +75,10 @@ func httpserver(w http.ResponseWriter, r *http.Request) {
 
 	// Set global options
 	line.SetGlobalOptions(charts.WithTitleOpts(opts.Title{
-		Title:         "Storage Calculator",
+		Title:         "Collatz Conjecture",
 		TitleStyle:    &opts.TextStyle{},
 		Link:          "",
-		Subtitle:      fmt.Sprintf("%v", " Disks per node with RF=2 (3 copies of the data, Tolerates 2 node failure"),
+		Subtitle:      fmt.Sprintf("%v", " "),
 		SubtitleStyle: &opts.TextStyle{},
 		SubLink:       "",
 		Target:        "",
@@ -90,7 +90,8 @@ func httpserver(w http.ResponseWriter, r *http.Request) {
 
 	// Put data into instance
 	line.SetXAxis(xslice).
-		AddSeries("Usable Capacity", generateLineItems(false))
+		AddSeries("Collatz", generateLineItems(false))
+
 	line.Render(w)
 
 	html = fmt.Sprint("<div class='fixed-footer'>KAM Software Solutions</div>")
