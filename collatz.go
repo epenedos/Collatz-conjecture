@@ -12,11 +12,6 @@ import (
 	"github.com/go-echarts/go-echarts/v2/opts"
 )
 
-//    "os"
-
-//    "math/rand"
-
-//    "github.com/go-echarts/go-echarts/v2/types"
 
 var initnumber int64
 var html string
@@ -55,20 +50,20 @@ func httpserver(w http.ResponseWriter, r *http.Request) {
 
 	compute(initnumber)
 
-	html = fmt.Sprint("<html lang='en'>")
+	html = f"<html lang='en'>"
 	w.Write([]byte(html))
-	html = fmt.Sprint("<head><title>Collatz Conjecture</title> <link rel='stylesheet' href='/assets/style.css' /></head>")
-	w.Write([]byte(html))
-
-	html = fmt.Sprint("<body>")
+	html = "<head><title>Collatz Conjecture</title> <link rel='stylesheet' href='/assets/style.css' /></head>"
 	w.Write([]byte(html))
 
-	html = fmt.Sprint("<div class='fixed-header'>")
+	html = "<body>"
 	w.Write([]byte(html))
 
-	html = fmt.Sprint("<img id='logo' src='/assets/img/collatz.png' width='75' height='75'> <span id='title'>Collatz Conjecture</span>")
+	html = "<div class='fixed-header'>"
 	w.Write([]byte(html))
-	html = fmt.Sprint("</div>")
+
+	html = "<img id='logo' src='/assets/img/collatz.png' width='75' height='75'> <span id='title'>Collatz Conjecture</span>"
+	w.Write([]byte(html))
+	html = "</div>"
 	w.Write([]byte(html))
 
 	line := charts.NewLine()
@@ -94,11 +89,11 @@ func httpserver(w http.ResponseWriter, r *http.Request) {
 
 	line.Render(w)
 
-	html = fmt.Sprint("<div class='fixed-footer'>KAM Software Solutions</div>")
+	html = "<div class='fixed-footer'>KAM Software Solutions</div>"
 	w.Write([]byte(html))
-	html = fmt.Sprint("</body>")
+	html = "</body>"
 	w.Write([]byte(html))
-	html = fmt.Sprint("</html>")
+	html = "</html>"
 	w.Write([]byte(html))
 
 }
