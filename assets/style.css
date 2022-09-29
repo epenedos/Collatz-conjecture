@@ -20,9 +20,9 @@ html {
   }
   
   div {
-          padding : 1%;
+          padding : 10%;
           color: white;
-          width: 30%;
+          width: 100%;
   }
   
   
@@ -95,13 +95,13 @@ html {
   }
   
   .results {
-    display:block;
+    display: block;
     top: 150;
     width: auto;
     max-width: 2000px;
     color: var(--black);
     margin: auto;
-    padding: 100px 0px;
+    padding: 100px 10px;
   
   }
   .cluster-list {

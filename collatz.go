@@ -12,11 +12,12 @@ import (
 	"github.com/go-echarts/go-echarts/v2/opts"
 )
 
-
 var initnumber int64
 var html string
 var intSlice []int
 var xslice []string
+
+var allSlice []int
 
 func main() {
 
@@ -38,6 +39,8 @@ func httpserver_home(w http.ResponseWriter, r *http.Request) {
 
 func httpserver(w http.ResponseWriter, r *http.Request) {
 
+	allSlice = nil
+
 	u, err := url.Parse(r.URL.String())
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -50,7 +53,7 @@ func httpserver(w http.ResponseWriter, r *http.Request) {
 
 	compute(initnumber)
 
-	html = f"<html lang='en'>"
+	html = "<html lang='en'>"
 	w.Write([]byte(html))
 	html = "<head><title>Collatz Conjecture</title> <link rel='stylesheet' href='/assets/style.css' /></head>"
 	w.Write([]byte(html))
@@ -66,28 +69,31 @@ func httpserver(w http.ResponseWriter, r *http.Request) {
 	html = "</div>"
 	w.Write([]byte(html))
 
-	line := charts.NewLine()
+	compute(initnumber)
 
-	// Set global options
-	line.SetGlobalOptions(charts.WithTitleOpts(opts.Title{
-		Title:         "Collatz Conjecture",
-		TitleStyle:    &opts.TextStyle{},
-		Link:          "",
-		Subtitle:      fmt.Sprintf("%v", " "),
-		SubtitleStyle: &opts.TextStyle{},
-		SubLink:       "",
-		Target:        "",
-		Top:           "",
-		Bottom:        "",
-		Left:          "",
-		Right:         "",
-	}))
+	html = "<div class='results'>"
+	//	w.Write([]byte(html))
 
-	// Put data into instance
-	line.SetXAxis(xslice).
-		AddSeries("Collatz", generateLineItems(false))
+	BuildGraph(w)
 
-	line.Render(w)
+	html = "</div>"
+	//	w.Write([]byte(html))
+
+	initnumber2 := int64(nn) - 1
+	for i := initnumber2; i > 0; i-- {
+		compute((i))
+
+	}
+	html = "<div class='results' style=width:1000px;height:600px;>"
+	//	w.Write([]byte(html))
+
+	BuildGraphLim0(w)
+
+	html = "</div>"
+	//	w.Write([]byte(html))
+	//	fmt.Printf("allSlice: %v\n", allSlice)
+
+	// footer
 
 	html = "<div class='fixed-footer'>KAM Software Solutions</div>"
 	w.Write([]byte(html))
@@ -106,29 +112,39 @@ func generateLineItems(raw bool) []opts.LineData {
 	return items
 }
 
-func compute(initnumber int64) {
+func generateAllLineItems() []opts.LineData {
+	items := make([]opts.LineData, 0)
+	for i := len(allSlice) - 1; i >= 0; i-- {
+		items = append(items, opts.LineData{Value: allSlice[i]})
+	}
+	return items
+}
+
+func compute(number int64) {
 
 	intSlice = nil
 	xslice = nil
-	intSlice = append(intSlice, int(initnumber))
+	intSlice = append(intSlice, int(number))
 	for {
 
-		n := coll(initnumber)
+		n := coll(number)
 
-		initnumber = n
-		intSlice = append(intSlice, int(initnumber))
-		if initnumber == 1 {
+		number = n
+		intSlice = append(intSlice, int(number))
+		if number == 1 {
 			break
 		}
 
 	}
 
 	for i := 0; i < len(intSlice); i++ {
-		xslice = append(xslice, fmt.Sprint(i))
+		xslice = append(xslice, fmt.Sprint(i+1))
 	}
 
-	fmt.Printf("intSlice: %v\n", intSlice)
-	fmt.Printf("xslice: %v\n", xslice)
+	//	fmt.Printf("intSlice: %v\n", intSlice)
+	//	fmt.Printf("xslice: %v\n", len(intSlice))
+	//	fmt.Println("")
+	allSlice = append(allSlice, len(intSlice))
 
 }
 
@@ -141,4 +157,171 @@ func coll(r int64) (res int64) {
 	}
 
 	return res
+}
+
+func BuildGraph(w http.ResponseWriter) {
+	line := charts.NewLine()
+
+	// Set global options
+	line.SetGlobalOptions(charts.WithTitleOpts(opts.Title{
+		Title: "Collatz Conjecture",
+		TitleStyle: &opts.TextStyle{
+			Color:      "",
+			FontStyle:  "",
+			FontSize:   0,
+			FontFamily: "",
+			Padding:    nil,
+			Normal: &opts.TextStyle{
+				Color:      "",
+				FontStyle:  "",
+				FontSize:   0,
+				FontFamily: "",
+				Padding:    nil,
+				Normal:     &opts.TextStyle{},
+			},
+		},
+		Link:     "",
+		Subtitle: fmt.Sprintf("%v", " "),
+		SubtitleStyle: &opts.TextStyle{
+			Color:      "",
+			FontStyle:  "",
+			FontSize:   0,
+			FontFamily: "",
+			Padding:    nil,
+			Normal:     &opts.TextStyle{},
+		},
+		SubLink: "",
+		Target:  "",
+		Top:     "",
+		Bottom:  "",
+		Left:    "Center",
+		Right:   "",
+	}))
+
+	line.SetGlobalOptions(charts.WithToolboxOpts(opts.Toolbox{
+		Show:   true,
+		Orient: "",
+		Left:   "",
+		Top:    "",
+		Right:  "",
+		Bottom: "",
+		Feature: &opts.ToolBoxFeature{
+			SaveAsImage: &opts.ToolBoxFeatureSaveAsImage{
+				Show:  true,
+				Type:  "",
+				Name:  "",
+				Title: "Save",
+			},
+			DataZoom: &opts.ToolBoxFeatureDataZoom{
+				Show:  true,
+				Title: map[string]string{},
+			},
+			DataView: &opts.ToolBoxFeatureDataView{
+				Show:            false,
+				Title:           "",
+				Lang:            []string{},
+				BackgroundColor: "green",
+			},
+			Restore: &opts.ToolBoxFeatureRestore{
+				Show:  true,
+				Title: "Reset",
+			},
+		},
+	}))
+
+	line.SetGlobalOptions(charts.WithDataZoomOpts(opts.DataZoom{
+		Type:  "slider",
+		Start: 1,
+	}))
+
+	line.SetGlobalOptions(charts.WithTooltipOpts(opts.Tooltip{
+		Show:        true,
+		Trigger:     "axis",
+		TriggerOn:   "",
+		Formatter:   "",
+		AxisPointer: &opts.AxisPointer{},
+	}))
+
+	// Put data into instance
+	line.SetXAxis(xslice).
+		AddSeries("Valor", generateLineItems(false))
+
+	line.Render(w)
+
+}
+
+func BuildGraphLim0(w http.ResponseWriter) {
+
+	lineAll := charts.NewLine()
+	lineAll.SetGlobalOptions(charts.WithTitleOpts(opts.Title{
+		Title:         "Number of Elements ",
+		TitleStyle:    &opts.TextStyle{},
+		Link:          "",
+		Subtitle:      fmt.Sprintf("%v", " "),
+		SubtitleStyle: &opts.TextStyle{},
+		SubLink:       "",
+		Target:        "",
+		Top:           "",
+		Bottom:        "",
+		Left:          "",
+		Right:         "",
+	}))
+
+	// Put data into instance
+	xslice = nil
+	for i := 0; i < len(allSlice); i++ {
+		xslice = append(xslice, fmt.Sprint(i+1))
+	}
+
+	// fmt.Printf("all xslice: %v\n", xslice)
+
+	lineAll.SetXAxis(xslice).
+		AddSeries("# Elements", generateAllLineItems())
+
+	lineAll.SetGlobalOptions(charts.WithTooltipOpts(opts.Tooltip{
+		Show:        true,
+		Trigger:     "axis",
+		TriggerOn:   "",
+		Formatter:   "",
+		AxisPointer: &opts.AxisPointer{},
+	}))
+
+	lineAll.SetGlobalOptions(charts.WithToolboxOpts(opts.Toolbox{
+		Show:   true,
+		Orient: "",
+		Left:   "",
+		Top:    "",
+		Right:  "",
+		Bottom: "",
+		Feature: &opts.ToolBoxFeature{
+			SaveAsImage: &opts.ToolBoxFeatureSaveAsImage{
+				Show:  true,
+				Type:  "",
+				Name:  "",
+				Title: "Save",
+			},
+			DataZoom: &opts.ToolBoxFeatureDataZoom{
+				Show:  true,
+				Title: map[string]string{},
+			},
+			DataView: &opts.ToolBoxFeatureDataView{
+				Show:            false,
+				Title:           "",
+				Lang:            []string{},
+				BackgroundColor: "green",
+			},
+			Restore: &opts.ToolBoxFeatureRestore{
+				Show:  true,
+				Title: "Reset",
+			},
+		},
+	}))
+
+	lineAll.SetGlobalOptions(charts.WithDataZoomOpts(opts.DataZoom{
+		Type:  "slider",
+		Start: 1,
+	}))
+
+	lineAll.Render(w)
+
 }
