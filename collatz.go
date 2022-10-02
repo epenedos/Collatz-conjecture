@@ -84,13 +84,13 @@ func httpserver(w http.ResponseWriter, r *http.Request) {
 		compute((i))
 
 	}
-	html = "<div class='results' style=width:1000px;height:600px;>"
-	//	w.Write([]byte(html))
+	html = "<div class='results' >"
+	//w.Write([]byte(html))
 
 	BuildGraphLim0(w)
 
 	html = "</div>"
-	//	w.Write([]byte(html))
+	//w.Write([]byte(html))
 	//	fmt.Printf("allSlice: %v\n", allSlice)
 
 	// footer
@@ -114,7 +114,7 @@ func generateLineItems(raw bool) []opts.LineData {
 
 func generateAllLineItems() []opts.LineData {
 	items := make([]opts.LineData, 0)
-	for i := len(allSlice) - 1; i >= 0; i-- {
+	for i := len(allSlice) - 1; i > 0; i-- {
 		items = append(items, opts.LineData{Value: allSlice[i]})
 	}
 	return items
@@ -137,13 +137,13 @@ func compute(number int64) {
 
 	}
 
-	for i := 0; i < len(intSlice); i++ {
-		xslice = append(xslice, fmt.Sprint(i+1))
+	for i := 1; i <= len(intSlice); i++ {
+		xslice = append(xslice, fmt.Sprint(i))
 	}
 
-	//	fmt.Printf("intSlice: %v\n", intSlice)
-	//	fmt.Printf("xslice: %v\n", len(intSlice))
-	//	fmt.Println("")
+	fmt.Printf("intSlice: %v\n", intSlice)
+	fmt.Printf("xslice: %v\n", len(intSlice))
+	fmt.Println("")
 	allSlice = append(allSlice, len(intSlice))
 
 }
@@ -160,7 +160,22 @@ func coll(r int64) (res int64) {
 }
 
 func BuildGraph(w http.ResponseWriter) {
+
 	line := charts.NewLine()
+	//line.Feature.DataView.Lang = append(line.Feature.DataView.Lang, "data view")
+	//line.Feature.DataView.Lang = append(line.Feature.DataView.Lang, "turn off")
+	//line.Feature.DataView.Lang = append(line.Feature.DataView.Lang, "data view", "turn off", "refresh")
+
+	//line.Feature.DataView.Lang = ["data view", "turn off", "refresh"]
+	line.SetGlobalOptions(charts.WithInitializationOpts(opts.Initialization{
+		PageTitle:       "teste",
+		Width:           "2000",
+		Height:          "1000",
+		BackgroundColor: "",
+		ChartID:         "1",
+		AssetsHost:      "",
+		Theme:           "",
+	}))
 
 	// Set global options
 	line.SetGlobalOptions(charts.WithTitleOpts(opts.Title{
@@ -194,7 +209,7 @@ func BuildGraph(w http.ResponseWriter) {
 		Target:  "",
 		Top:     "",
 		Bottom:  "",
-		Left:    "Center",
+		Left:    "",
 		Right:   "",
 	}))
 
@@ -214,12 +229,12 @@ func BuildGraph(w http.ResponseWriter) {
 			},
 			DataZoom: &opts.ToolBoxFeatureDataZoom{
 				Show:  true,
-				Title: map[string]string{},
+				Title: map[string]string{"Select", "undo"},
 			},
 			DataView: &opts.ToolBoxFeatureDataView{
-				Show:            false,
-				Title:           "",
-				Lang:            []string{},
+				Show:            true,
+				Title:           "View",
+				Lang:            []string{"data view", "turn off", "refresh"},
 				BackgroundColor: "green",
 			},
 			Restore: &opts.ToolBoxFeatureRestore{
@@ -229,22 +244,32 @@ func BuildGraph(w http.ResponseWriter) {
 		},
 	}))
 
+	
+
 	line.SetGlobalOptions(charts.WithDataZoomOpts(opts.DataZoom{
 		Type:  "slider",
 		Start: 1,
 	}))
 
 	line.SetGlobalOptions(charts.WithTooltipOpts(opts.Tooltip{
-		Show:        true,
-		Trigger:     "axis",
-		TriggerOn:   "",
-		Formatter:   "",
-		AxisPointer: &opts.AxisPointer{},
+		Show:      true,
+		Trigger:   "none",
+		TriggerOn: "",
+		Formatter: "",
+		AxisPointer: &opts.AxisPointer{
+			Type: "cross",
+			Snap: true,
+		},
 	}))
 
 	// Put data into instance
 	line.SetXAxis(xslice).
 		AddSeries("Valor", generateLineItems(false))
+
+	line.SetGlobalOptions(charts.WithDataZoomOpts(opts.DataZoom{
+		Type:  "slider",
+		Start: 1,
+	}))
 
 	line.Render(w)
 
@@ -253,18 +278,35 @@ func BuildGraph(w http.ResponseWriter) {
 func BuildGraphLim0(w http.ResponseWriter) {
 
 	lineAll := charts.NewLine()
+	lineAll.SetGlobalOptions(charts.WithInitializationOpts(opts.Initialization{
+		PageTitle:       "teste1",
+		Width:           "2000",
+		Height:          "1000",
+		BackgroundColor: "",
+		ChartID:         "2",
+		AssetsHost:      "",
+		Theme:           "",
+	}))
+
 	lineAll.SetGlobalOptions(charts.WithTitleOpts(opts.Title{
-		Title:         "Number of Elements ",
-		TitleStyle:    &opts.TextStyle{},
-		Link:          "",
-		Subtitle:      fmt.Sprintf("%v", " "),
-		SubtitleStyle: &opts.TextStyle{},
-		SubLink:       "",
-		Target:        "",
-		Top:           "",
-		Bottom:        "",
-		Left:          "",
-		Right:         "",
+		Title:      "Number of Elements ",
+		TitleStyle: &opts.TextStyle{},
+		Link:       "",
+		Subtitle:   fmt.Sprintf("%v", " "),
+		SubtitleStyle: &opts.TextStyle{
+			Color:      "",
+			FontStyle:  "",
+			FontSize:   0,
+			FontFamily: "",
+			Padding:    nil,
+			Normal:     &opts.TextStyle{},
+		},
+		SubLink: "",
+		Target:  "",
+		Top:     "",
+		Bottom:  "",
+		Left:    "",
+		Right:   "",
 	}))
 
 	// Put data into instance
@@ -279,11 +321,14 @@ func BuildGraphLim0(w http.ResponseWriter) {
 		AddSeries("# Elements", generateAllLineItems())
 
 	lineAll.SetGlobalOptions(charts.WithTooltipOpts(opts.Tooltip{
-		Show:        true,
-		Trigger:     "axis",
-		TriggerOn:   "",
-		Formatter:   "",
-		AxisPointer: &opts.AxisPointer{},
+		Show:      true,
+		Trigger:   "none",
+		TriggerOn: "",
+		Formatter: "",
+		AxisPointer: &opts.AxisPointer{
+			Type: "cross",
+			Snap: true,
+		},
 	}))
 
 	lineAll.SetGlobalOptions(charts.WithToolboxOpts(opts.Toolbox{
@@ -306,7 +351,7 @@ func BuildGraphLim0(w http.ResponseWriter) {
 			},
 			DataView: &opts.ToolBoxFeatureDataView{
 				Show:            false,
-				Title:           "",
+				Title:           "View",
 				Lang:            []string{},
 				BackgroundColor: "green",
 			},
