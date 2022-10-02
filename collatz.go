@@ -229,7 +229,7 @@ func BuildGraph(w http.ResponseWriter) {
 			},
 			DataZoom: &opts.ToolBoxFeatureDataZoom{
 				Show:  true,
-				Title: map[string]string{"Select", "undo"},
+				Title: map[string]string{},
 			},
 			DataView: &opts.ToolBoxFeatureDataView{
 				Show:            true,
@@ -243,8 +243,6 @@ func BuildGraph(w http.ResponseWriter) {
 			},
 		},
 	}))
-
-	
 
 	line.SetGlobalOptions(charts.WithDataZoomOpts(opts.DataZoom{
 		Type:  "slider",
