@@ -224,12 +224,12 @@ func BuildGraph(w http.ResponseWriter) {
 			SaveAsImage: &opts.ToolBoxFeatureSaveAsImage{
 				Show:  true,
 				Type:  "",
-				Name:  "",
+				Name:  "abc",
 				Title: "Save",
 			},
 			DataZoom: &opts.ToolBoxFeatureDataZoom{
 				Show:  true,
-				Title: map[string]string{},
+				Title: map[string]string{"zoom": "Select Area Zooming", "back": "Restore Area"},
 			},
 			DataView: &opts.ToolBoxFeatureDataView{
 				Show:            true,
