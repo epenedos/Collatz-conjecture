@@ -32,6 +32,6 @@ commands:
     exec:
       component: tools
       workingDir: ${PROJECTS_ROOT}/collatz-conjecture
-      commandLine: ./main
+      commandLine: ./collatz
       group:
         kind: run
