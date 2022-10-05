@@ -72,12 +72,12 @@ func httpserver(w http.ResponseWriter, r *http.Request) {
 	compute(initnumber)
 
 	html = "<div class='results'>"
-	//	w.Write([]byte(html))
+	//w.Write([]byte(html))
 
 	BuildGraph(w)
 
 	html = "</div>"
-	//	w.Write([]byte(html))
+	//w.Write([]byte(html))
 
 	initnumber2 := int64(nn) - 1
 	for i := initnumber2; i > 0; i-- {
@@ -162,11 +162,7 @@ func coll(r int64) (res int64) {
 func BuildGraph(w http.ResponseWriter) {
 
 	line := charts.NewLine()
-	//line.Feature.DataView.Lang = append(line.Feature.DataView.Lang, "data view")
-	//line.Feature.DataView.Lang = append(line.Feature.DataView.Lang, "turn off")
-	//line.Feature.DataView.Lang = append(line.Feature.DataView.Lang, "data view", "turn off", "refresh")
 
-	//line.Feature.DataView.Lang = ["data view", "turn off", "refresh"]
 	line.SetGlobalOptions(charts.WithInitializationOpts(opts.Initialization{
 		PageTitle:       "teste",
 		Width:           "2000",
@@ -250,14 +246,11 @@ func BuildGraph(w http.ResponseWriter) {
 	}))
 
 	line.SetGlobalOptions(charts.WithTooltipOpts(opts.Tooltip{
-		Show:      true,
-		Trigger:   "none",
-		TriggerOn: "",
-		Formatter: "",
-		AxisPointer: &opts.AxisPointer{
-			Type: "cross",
-			Snap: true,
-		},
+		Show:        true,
+		Trigger:     "axis",
+		TriggerOn:   "mousemove",
+		Formatter:   "{b0}: {c0}<br /> <br /> <br /> <br />{b1}: {c1}",
+		AxisPointer: &opts.AxisPointer{Type: "line", Snap: true},
 	}))
 
 	// Put data into instance
