@@ -56,6 +56,7 @@ func httpserver(w http.ResponseWriter, r *http.Request) {
 	html = "<html lang='en'>"
 	w.Write([]byte(html))
 	html = "<head><title>Collatz Conjecture</title> <link rel='stylesheet' href='/assets/style.css' /></head>"
+	//html = "<head><title>Collatz Conjecture</title> </head>"
 	w.Write([]byte(html))
 
 	html = "<body>"
@@ -217,26 +218,10 @@ func BuildGraph(w http.ResponseWriter) {
 		Right:  "",
 		Bottom: "",
 		Feature: &opts.ToolBoxFeature{
-			SaveAsImage: &opts.ToolBoxFeatureSaveAsImage{
-				Show:  true,
-				Type:  "",
-				Name:  "abc",
-				Title: "Save",
-			},
-			DataZoom: &opts.ToolBoxFeatureDataZoom{
-				Show:  true,
-				Title: map[string]string{"zoom": "Select Area Zooming", "back": "Restore Area"},
-			},
-			DataView: &opts.ToolBoxFeatureDataView{
-				Show:            true,
-				Title:           "View",
-				Lang:            []string{"data view", "turn off", "refresh"},
-				BackgroundColor: "green",
-			},
-			Restore: &opts.ToolBoxFeatureRestore{
-				Show:  true,
-				Title: "Reset",
-			},
+			SaveAsImage: &opts.ToolBoxFeatureSaveAsImage{Show: true, Type: "", Name: "abc", Title: "Save"},
+			DataZoom:    &opts.ToolBoxFeatureDataZoom{Show: true, Title: map[string]string{"zoom": "Select Area Zooming", "back": "Restore Area"}},
+			DataView:    &opts.ToolBoxFeatureDataView{Show: true, Title: "View", Lang: []string{"data view", "turn off", "refresh"}, BackgroundColor: "green"},
+			Restore:     &opts.ToolBoxFeatureRestore{Show: true, Title: "Reset"},
 		},
 	}))
 
@@ -248,9 +233,9 @@ func BuildGraph(w http.ResponseWriter) {
 	line.SetGlobalOptions(charts.WithTooltipOpts(opts.Tooltip{
 		Show:        true,
 		Trigger:     "axis",
-		TriggerOn:   "mousemove",
-		Formatter:   "{b0}: {c0}<br /> <br /> <br /> <br />{b1}: {c1}",
-		AxisPointer: &opts.AxisPointer{Type: "line", Snap: true},
+		TriggerOn:   "",
+		Formatter:   "Element: {b0} <br/> Valor: {c0}",
+		AxisPointer: &opts.AxisPointer{Type: "line", Snap: false},
 	}))
 
 	// Put data into instance
@@ -313,11 +298,11 @@ func BuildGraphLim0(w http.ResponseWriter) {
 
 	lineAll.SetGlobalOptions(charts.WithTooltipOpts(opts.Tooltip{
 		Show:      true,
-		Trigger:   "none",
+		Trigger:   "axis",
 		TriggerOn: "",
-		Formatter: "",
+		Formatter: "Element: {b0} <br/> Valor: {c0}",
 		AxisPointer: &opts.AxisPointer{
-			Type: "cross",
+			Type: "line",
 			Snap: true,
 		},
 	}))
@@ -338,12 +323,12 @@ func BuildGraphLim0(w http.ResponseWriter) {
 			},
 			DataZoom: &opts.ToolBoxFeatureDataZoom{
 				Show:  true,
-				Title: map[string]string{},
+				Title: map[string]string{"zoom": "Select Area Zooming", "back": "Restore Area"},
 			},
 			DataView: &opts.ToolBoxFeatureDataView{
 				Show:            false,
 				Title:           "View",
-				Lang:            []string{},
+				Lang:            []string{"data view", "turn off", "refresh"},
 				BackgroundColor: "green",
 			},
 			Restore: &opts.ToolBoxFeatureRestore{
