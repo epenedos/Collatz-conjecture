@@ -33,11 +33,15 @@ func main() {
 
 func httpserver_home(w http.ResponseWriter, r *http.Request) {
 	var tpl = template.Must(template.ParseFiles("www/index.html"))
+	fmt.Printf("tpl: %v\n", tpl)
 	tpl.Execute(w, nil)
 
 }
 
 func httpserver(w http.ResponseWriter, r *http.Request) {
+
+	var tpl = template.Must(template.ParseFiles("www/graph-header.html"))
+	tpl.Execute(w, nil)
 
 	allSlice = nil
 
@@ -53,56 +57,17 @@ func httpserver(w http.ResponseWriter, r *http.Request) {
 
 	compute(initnumber)
 
-	html = "<html lang='en'>"
-	w.Write([]byte(html))
-	html = "<head><title>Collatz Conjecture</title> <link rel='stylesheet' href='/assets/style.css' /></head>"
-	//html = "<head><title>Collatz Conjecture</title> </head>"
-	w.Write([]byte(html))
-
-	html = "<body>"
-	w.Write([]byte(html))
-
-	html = "<div class='fixed-header'>"
-	w.Write([]byte(html))
-
-	html = "<img id='logo' src='/assets/img/collatz.png' width='75' height='75'> <span id='title'>Collatz Conjecture</span>"
-	w.Write([]byte(html))
-	html = "</div>"
-	w.Write([]byte(html))
-
-	compute(initnumber)
-
-	html = "<div class='results'>"
-	//w.Write([]byte(html))
-
 	BuildGraph(w)
-
-	html = "</div>"
-	//w.Write([]byte(html))
 
 	initnumber2 := int64(nn) - 1
 	for i := initnumber2; i > 0; i-- {
 		compute((i))
 
 	}
-	html = "<div class='results' >"
-	//w.Write([]byte(html))
 
 	BuildGraphLim0(w)
-
-	html = "</div>"
-	//w.Write([]byte(html))
-	//	fmt.Printf("allSlice: %v\n", allSlice)
-
-	// footer
-
-	html = "<div class='fixed-footer'>KAM Software Solutions</div>"
-	w.Write([]byte(html))
-	html = "</body>"
-	w.Write([]byte(html))
-	html = "</html>"
-	w.Write([]byte(html))
-
+	tpl = template.Must(template.ParseFiles("www/graph-footer.html"))
+	tpl.Execute(w, nil)
 }
 
 func generateLineItems(raw bool) []opts.LineData {
@@ -142,9 +107,9 @@ func compute(number int64) {
 		xslice = append(xslice, fmt.Sprint(i))
 	}
 
-	fmt.Printf("intSlice: %v\n", intSlice)
-	fmt.Printf("xslice: %v\n", len(intSlice))
-	fmt.Println("")
+	//fmt.Printf("intSlice: %v\n", intSlice)
+	//fmt.Printf("xslice: %v\n", len(intSlice))
+	//fmt.Println("")
 	allSlice = append(allSlice, len(intSlice))
 
 }
@@ -228,6 +193,12 @@ func BuildGraph(w http.ResponseWriter) {
 	line.SetGlobalOptions(charts.WithDataZoomOpts(opts.DataZoom{
 		Type:  "slider",
 		Start: 1,
+	}))
+
+	line.SetGlobalOptions(charts.WithYAxisOpts(opts.YAxis{
+		Name: "",
+		Type: "log",
+		Show: true,
 	}))
 
 	line.SetGlobalOptions(charts.WithTooltipOpts(opts.Tooltip{
