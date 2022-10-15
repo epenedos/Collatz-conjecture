@@ -33,7 +33,6 @@ func main() {
 
 func httpserver_home(w http.ResponseWriter, r *http.Request) {
 	var tpl = template.Must(template.ParseFiles("www/index.html"))
-	fmt.Printf("tpl: %v\n", tpl)
 	tpl.Execute(w, nil)
 
 }
@@ -66,6 +65,8 @@ func httpserver(w http.ResponseWriter, r *http.Request) {
 	}
 
 	BuildGraphLim0(w)
+
+
 	tpl = template.Must(template.ParseFiles("www/graph-footer.html"))
 	tpl.Execute(w, nil)
 }
@@ -85,6 +86,8 @@ func generateAllLineItems() []opts.LineData {
 	}
 	return items
 }
+
+
 
 func compute(number int64) {
 
@@ -189,6 +192,8 @@ func BuildGraph(w http.ResponseWriter) {
 			Restore:     &opts.ToolBoxFeatureRestore{Show: true, Title: "Reset"},
 		},
 	}))
+
+
 
 	line.SetGlobalOptions(charts.WithDataZoomOpts(opts.DataZoom{
 		Type:  "slider",
