@@ -2,7 +2,25 @@ schemaVersion: 2.2.0
 metadata:
   name: collatz
 components:
-  - name: tools
+  - name: frontend
+    container:
+      image: registry.redhat.io/devspaces/udi-rhel8:3.1
+      memoryLimit: 3Gi
+      mountSources: true
+      env:
+        - name: GOPATH
+          # replicate the GOPATH from the plugin
+          value: /projects/.che/gopath:/projects
+        - name: GOCACHE
+          # replicate the GOCACHE from the plugin, even though the cache is not shared
+          # between the two
+          value: /tmp/.cache
+      endpoints:
+        - exposure: public
+          name: 'collatz'
+          protocol: http
+          targetPort: 8080
+  - name: backend
     container:
       image: registry.redhat.io/devspaces/udi-rhel8:3.1
       memoryLimit: 3Gi
@@ -23,14 +41,14 @@ components:
 commands:
   - id: build
     exec:
-      component: tools
+      component: frontend
       workingDir: ${PROJECTS_ROOT}/collatz-conjecture
       commandLine: go build
       group:
         kind: build
   - id: run
     exec:
-      component: tools
+      component: frontend
       workingDir: ${PROJECTS_ROOT}/collatz-conjecture
       commandLine: ./collatz
       group:
