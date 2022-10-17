@@ -22,7 +22,7 @@ components:
           targetPort: 8080
   - name: backend
     container:
-      image: registry.redhat.io/devspaces/udi-rhel8:3.2
+      image: registry.redhat.io/devspaces/udi-rhel8:3.1
       memoryLimit: 3Gi
       mountSources: true
       env:
@@ -39,28 +39,28 @@ components:
           protocol: http
           targetPort: 8081
 commands:
-  - id: buildfe
+  - id: build
     exec:
       component: frontend
       workingDir: ${PROJECTS_ROOT}/collatz-conjecture/frontend
       commandLine: go build
       group:
         kind: build
-  - id: runfe
+  - id: run
     exec:
       component: frontend
       workingDir: ${PROJECTS_ROOT}/collatz-conjecture/frontend
       commandLine: ./collatz-fe
       group:
         kind: run
-  - id: buildbe
+  - id: build
     exec:
       component: backend
       workingDir: ${PROJECTS_ROOT}/collatz-conjecture/backend
       commandLine: go build
       group:
         kind: build
-  - id: runbe
+  - id: run
     exec:
       component: backend
       workingDir: ${PROJECTS_ROOT}/collatz-conjecture/backend
