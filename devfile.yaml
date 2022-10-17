@@ -50,7 +50,7 @@ commands:
     exec:
       component: frontend
       workingDir: ${PROJECTS_ROOT}/collatz-conjecture/frontend
-      commandLine: ./collatz-frontend
+      commandLine: ./collatz-fe
       group:
         kind: run
   - id: build
@@ -62,8 +62,8 @@ commands:
         kind: build
   - id: run
     exec:
-      component: backend\
+      component: backend
       workingDir: ${PROJECTS_ROOT}/collatz-conjecture/backend
-      commandLine: ./collatz-backend
+      commandLine: ./collatz-be
       group:
         kind: run
