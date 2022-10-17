@@ -4,7 +4,7 @@ metadata:
 components:
   - name: frontend
     container:
-      image: registry.redhat.io/devspaces/udi-rhel8:8.3.1
+      image: registry.redhat.io/devspaces/udi-rhel8:3.1
       memoryLimit: 3Gi
       mountSources: true
       env:
@@ -22,7 +22,7 @@ components:
           targetPort: 8080
   - name: backend
     container:
-      image: registry.redhat.io/devspaces/udi-rhel8:latest
+      image: registry.redhat.io/devspaces/udi-rhel8:3.2
       memoryLimit: 3Gi
       mountSources: true
       env:
