@@ -4,7 +4,7 @@ metadata:
 components:
   - name: frontend
     container:
-      image: registry.redhat.io/devspaces/udi-rhel7:latest
+      image: registry.redhat.io/devspaces/udi-rhel8:latest
       memoryLimit: 3Gi
       mountSources: true
       env:
