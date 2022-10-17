@@ -1,6 +1,9 @@
 schemaVersion: 2.2.0
 metadata:
   name: collatz
+parent:
+  id: go
+  registryUrl: "https://registry.devfile.io"
 components:
   - name: frontend
     container:
@@ -22,7 +25,7 @@ components:
           targetPort: 8080
   - name: backend
     container:
-      image: registry.redhat.io/devspaces/udi-rhel8:3.1
+      image: registry.redhat.io/devspaces/udi-rhel8:3.2
       memoryLimit: 3Gi
       mountSources: true
       env:
