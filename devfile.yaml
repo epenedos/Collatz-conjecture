@@ -22,7 +22,7 @@ components:
           targetPort: 8080
   - name: backend
     container:
-      image: registry.access.redhat.com/ubi8/ubi:8.6-943.1665521450
+      image: registry.access.redhat.com/ubi8/ubi-init@sha256:4c1d7346b5ce85445355ce12273b3e53198035b6ee858f9c38f6c2384aa52cea
       memoryLimit: 3Gi
       mountSources: true
       env:
