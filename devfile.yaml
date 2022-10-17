@@ -1,9 +1,6 @@
 schemaVersion: 2.2.0
 metadata:
   name: collatz
-parent:
-  id: go
-  registryUrl: "https://registry.devfile.io"
 components:
   - name: frontend
     container:
