@@ -39,28 +39,28 @@ components:
           protocol: http
           targetPort: 8081
 commands:
-  - id: build
+  - id: buildfe
     exec:
       component: frontend
       workingDir: ${PROJECTS_ROOT}/collatz-conjecture/frontend
       commandLine: go build
       group:
         kind: build
-  - id: run
+  - id: runfe
     exec:
       component: frontend
       workingDir: ${PROJECTS_ROOT}/collatz-conjecture/frontend
       commandLine: ./collatz-fe
       group:
         kind: run
-  - id: build
+  - id: buildbe
     exec:
       component: backend
       workingDir: ${PROJECTS_ROOT}/collatz-conjecture/backend
       commandLine: go build
       group:
         kind: build
-  - id: run
+  - id: runbe
     exec:
       component: backend
       workingDir: ${PROJECTS_ROOT}/collatz-conjecture/backend
