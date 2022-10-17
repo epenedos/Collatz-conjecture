@@ -22,7 +22,7 @@ components:
           targetPort: 8080
   - name: backend
     container:
-      image: registry.redhat.io/devspaces/udi-rhel8:3.1
+      image: registry.redhat.io/devspaces/udi-rhel8:3.2
       memoryLimit: 3Gi
       mountSources: true
       env:
@@ -53,14 +53,14 @@ commands:
       commandLine: ./collatz-fe
       group:
         kind: run
-  - id: build2
+  - id: build
     exec:
       component: backend
       workingDir: ${PROJECTS_ROOT}/collatz-conjecture/backend
       commandLine: go build
       group:
         kind: build
-  - id: run2
+  - id: run
     exec:
       component: backend
       workingDir: ${PROJECTS_ROOT}/collatz-conjecture/backend
