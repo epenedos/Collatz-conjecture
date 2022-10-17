@@ -17,7 +17,7 @@ components:
           value: /tmp/.cache
       endpoints:
         - exposure: public
-          name: 'collatz-fronend'
+          name: 'collatz-frontend'
           protocol: http
           targetPort: 8080
   - name: backend
