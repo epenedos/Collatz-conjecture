@@ -22,7 +22,7 @@ components:
           targetPort: 8080
   - name: backend
     container:
-      image: https://registry.devfile.io/go-image:latest
+      image: registry.devfile.io/go-image:latest
       memoryLimit: 3Gi
       mountSources: true
       env:
