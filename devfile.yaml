@@ -53,14 +53,14 @@ commands:
       commandLine: ./collatz-fe
       group:
         kind: run
-  - id: build
+  - id: build2
     exec:
       component: backend
       workingDir: ${PROJECTS_ROOT}/collatz-conjecture/backend
       commandLine: go build
       group:
         kind: build
-  - id: run
+  - id: run2
     exec:
       component: backend
       workingDir: ${PROJECTS_ROOT}/collatz-conjecture/backend
