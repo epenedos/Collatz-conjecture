@@ -15,8 +15,6 @@ components:
           # replicate the GOCACHE from the plugin, even though the cache is not shared
           # between the two
           value: /tmp/.cache
-        - name: PROJECT_SOURCE
-          value: /projects/collatz-conjecture/frontend
       endpoints:
         - exposure: public
           name: 'collatzfe'
@@ -35,8 +33,6 @@ components:
           # replicate the GOCACHE from the plugin, even though the cache is not shared
           # between the two
           value: /tmp/.cache
-        - name: PROJECT_SOURCE
-          value: /projects/collatz-conjecture/frontend
       endpoints:
         - exposure: public
           name: 'collatzbe'
@@ -47,7 +43,7 @@ commands:
     exec:
       component: frontend
       workingDir: ${PROJECTS_ROOT}/collatz-conjecture/frontend
-      commandLine: go build
+      commandLine: cd frontend ; go build
       group:
         kind: build
   - id: run
