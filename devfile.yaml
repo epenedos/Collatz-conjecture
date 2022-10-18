@@ -35,6 +35,8 @@ components:
           # replicate the GOCACHE from the plugin, even though the cache is not shared
           # between the two
           value: /tmp/.cache
+        - name: PROJECT_SOURCE
+          value: /projects/collatz-conjecture/frontend
       endpoints:
         - exposure: public
           name: 'collatzbe'
