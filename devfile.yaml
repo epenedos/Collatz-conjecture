@@ -57,13 +57,13 @@ commands:
     exec:
       component: backend
       workingDir: ${PROJECTS_ROOT}/collatz-conjecture/backend
-      commandLine: go build
+      commandLine: go mod tidy; go build collatz-be
       group:
         kind: build
   - id: run
     exec:
       component: backend
       workingDir: ${PROJECTS_ROOT}/collatz-conjecture/backend
-      commandLine: ./backend
+      commandLine: ./collatz
       group:
         kind: run
