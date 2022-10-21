@@ -43,7 +43,7 @@ commands:
     exec:
       component: frontend
       workingDir: ${PROJECTS_ROOT}/collatz-conjecture/frontend
-      commandLine: cd frontend ; go build
+      commandLine: go build
       group:
         kind: build
   - id: run
