@@ -43,14 +43,14 @@ commands:
     exec:
       component: frontend
       workingDir: ${PROJECTS_ROOT}/collatz-conjecture/frontend
-      commandLine: go build
+      commandLine: go build collatz-fe
       group:
         kind: build
   - id: run
     exec:
       component: frontend
       workingDir: ${PROJECTS_ROOT}/collatz-conjecture/frontend
-      commandLine: ./frontend
+      commandLine: ./collatz-fe
       group:
         kind: run
   - id: build
@@ -64,6 +64,6 @@ commands:
     exec:
       component: backend
       workingDir: ${PROJECTS_ROOT}/collatz-conjecture/backend
-      commandLine: ./collatz
+      commandLine: ./collatz-be
       group:
         kind: run
