@@ -27,7 +27,7 @@ func main() {
 	router.HandleFunc("/collatz/", Collatz).Methods("GET")
 
 	// serve the app
-	fmt.Println("Server at 8080")
+	fmt.Println("Server at 8081")
 	log.Fatal(http.ListenAndServe(":8081", router))
 }
 
