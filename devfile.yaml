@@ -41,28 +41,28 @@ components:
 commands:
   - id: build-fe
     exec:
-      component: frontend
+      component: collatz-fe
       workingDir: ${PROJECTS_ROOT}/collatz-conjecture/collatz-fe
       commandLine: go mod tidy; go build
       group:
         kind: build
   - id: run-fe
     exec:
-      component: frontend
+      component: collatz-fe
       workingDir: ${PROJECTS_ROOT}/collatz-conjecture/collatz-fe
       commandLine: ./collatz-fe
       group:
         kind: run
   - id: build-be
     exec:
-      component: backend
+      component: collatz-be
       workingDir: ${PROJECTS_ROOT}/collatz-conjecture/collatz-be
       commandLine: go mod tidy; go build
       group:
         kind: build
   - id: run-be
     exec:
-      component: backend
+      component: collatz-be
       workingDir: ${PROJECTS_ROOT}/collatz-conjecture/collatz-be
       commandLine: ./collatz-be
       group:
