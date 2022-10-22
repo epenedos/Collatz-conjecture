@@ -1,4 +1,4 @@
-module collatz/collatz-be/v2
+module collatz-be/v2
 
 go 1.17
 
