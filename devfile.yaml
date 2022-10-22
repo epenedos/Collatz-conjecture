@@ -2,7 +2,7 @@ schemaVersion: 2.1.0
 metadata:
   name: collatz
 components:
-  - name: frontend
+  - name: collatz-fe
     container:
       image: registry.redhat.io/devspaces/udi-rhel8:3.1
       memoryLimit: 3Gi
@@ -20,7 +20,7 @@ components:
           name: 'collatzfe'
           protocol: http
           targetPort: 8080
-  - name: backend
+  - name: collatz-be
     container:
       image: registry.redhat.io/devspaces/udi-rhel8:3.1
       memoryLimit: 3Gi
