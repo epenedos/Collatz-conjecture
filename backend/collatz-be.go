@@ -32,10 +32,11 @@ func main() {
 }
 
 func Collatz(w http.ResponseWriter, r *http.Request) {
-	params := mux.Vars(r)
+	movieID := r.FormValue("movieid")
 
-	movieID := params["movieid"]
 	fmt.Println(movieID)
+	fmt.Fprintf(w, "<h1>%s</h1><div>%s</div>", "abd", movieID)
+
 
 }
 
