@@ -1,6 +1,7 @@
 schemaVersion: 2.1.0
 metadata:
   name: collatz
+  namespace: edu-collatz
 components:
   - name: frontend
     container:
@@ -38,7 +39,6 @@ components:
           name: 'collatzbe'
           protocol: http
           targetPort: 8081
-          path: collatz-be
 commands:
   - id: build-fe
     exec:
