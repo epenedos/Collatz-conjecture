@@ -38,29 +38,30 @@ components:
           name: 'collatzbe'
           protocol: http
           targetPort: 8081
+          path: collatz-be
 commands:
-  - id: build
+  - id: build-fe
     exec:
       component: frontend
       workingDir: ${PROJECTS_ROOT}/collatz-conjecture/frontend
       commandLine: go build collatz-fe
       group:
         kind: build
-  - id: run
+  - id: run-fe
     exec:
       component: frontend
       workingDir: ${PROJECTS_ROOT}/collatz-conjecture/frontend
       commandLine: ./collatz-fe
       group:
         kind: run
-  - id: build
+  - id: build-be
     exec:
       component: backend
       workingDir: ${PROJECTS_ROOT}/collatz-conjecture/backend
       commandLine: go mod tidy; go build collatz-be
       group:
         kind: build
-  - id: run
+  - id: run-be
     exec:
       component: backend
       workingDir: ${PROJECTS_ROOT}/collatz-conjecture/backend
