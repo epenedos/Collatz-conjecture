@@ -44,7 +44,7 @@ commands:
     exec:
       component: frontend
       workingDir: ${PROJECTS_ROOT}/collatz-conjecture/frontend
-      commandLine: go mod tidy; go build collatz-fe
+      commandLine: go mod tidy; go build ./collatz-fe
       group:
         kind: build
   - id: run-fe
@@ -58,7 +58,7 @@ commands:
     exec:
       component: backend
       workingDir: ${PROJECTS_ROOT}/collatz-conjecture/backend
-      commandLine: go mod tidy; go build collatz-be
+      commandLine: go mod tidy; go build ./collatz-be
       group:
         kind: build
   - id: run-be
