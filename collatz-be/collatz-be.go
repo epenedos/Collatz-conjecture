@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"strconv"
 
 	"github.com/gorilla/mux"
 	_ "github.com/lib/pq"
@@ -33,10 +34,14 @@ func main() {
 
 func Collatz(w http.ResponseWriter, r *http.Request) {
 	movieID := r.FormValue("movieid")
-
+	i, err := strconv.ParseInt(movieID, 10, 64)
+	if err != nil {
+		panic(err)
+	}
 	fmt.Println(movieID)
-	fmt.Fprintf(w, "<h1>%s</h1><div>%s</div>", "abd", movieID)
-
+	fmt.Fprintf(w, "<h1>%s</h1><div>%s</div>", movieID, "")
+	compute(int64(i))
+	fmt.Printf("xslice: %v\n", xslice)
 
 }
 

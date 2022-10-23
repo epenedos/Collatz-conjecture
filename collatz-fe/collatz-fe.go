@@ -54,18 +54,21 @@ func httpserver(w http.ResponseWriter, r *http.Request) {
 	nn, err := strconv.ParseInt(params.Get("nhosts"), 10, 0)
 	initnumber = int64(nn)
 
-	compute(initnumber)
+	//compute(initnumber)
 
-	BuildGraph(w)
+	response, err := http.Get("http://localhost:8081/collatz/?init=" + params.Get("nhosts"))
 
-	initnumber2 := int64(nn) - 1
-	for i := initnumber2; i > 0; i-- {
-		compute((i))
+	//BuildGraph(w)
+	fmt.Fprintf(w, "%s", response)
+	//initnumber2 := int64(nn) - 1
+	//for i := initnumber2; i > 0; i-- {
+	//	compute((i))
 
-	}
+	//}
 
-	BuildGraphLim0(w)
+	//BuildGraphLim0(w)
 
+	fmt.Printf("response: %v\n", response)
 
 	tpl = template.Must(template.ParseFiles("www/graph-footer.html"))
 	tpl.Execute(w, nil)
@@ -86,8 +89,6 @@ func generateAllLineItems() []opts.LineData {
 	}
 	return items
 }
-
-
 
 func compute(number int64) {
 
@@ -192,8 +193,6 @@ func BuildGraph(w http.ResponseWriter) {
 			Restore:     &opts.ToolBoxFeatureRestore{Show: true, Title: "Reset"},
 		},
 	}))
-
-
 
 	line.SetGlobalOptions(charts.WithDataZoomOpts(opts.DataZoom{
 		Type:  "slider",
