@@ -7,6 +7,7 @@ import (
 	"net/http"
 	"net/url"
 	"strconv"
+	"io/ioutil"
 
 	"github.com/go-echarts/go-echarts/v2/charts"
 	"github.com/go-echarts/go-echarts/v2/opts"
@@ -57,9 +58,10 @@ func httpserver(w http.ResponseWriter, r *http.Request) {
 	//compute(initnumber)
 
 	response, err := http.Get("http://localhost:8081/collatz/?init=" + params.Get("nhosts"))
+	responseData, err := ioutil.ReadAll(response.Body)
 
 	//BuildGraph(w)
-	fmt.Fprintf(w, "%s", response)
+	fmt.Fprintf(w, "%s", string(responseData))
 	//initnumber2 := int64(nn) - 1
 	//for i := initnumber2; i > 0; i-- {
 	//	compute((i))
