@@ -1,6 +1,11 @@
 schemaVersion: 2.1.0
 metadata:
   name: collatz
+projects:
+  - git:
+      remotes:
+        origin: 'https://github.com/epenedos/Collatz-conjecture.git/origin/INITIAL'
+    name: collatz-conjecture
 components:
   - name: collatz-fe
     container:
