@@ -1,0 +1,49 @@
+schemaVersion: 2.1.0
+metadata:
+  name: collatz
+components:
+  - name: collatz-fe
+    container:
+      image: registry.redhat.io/devspaces/udi-rhel8:3.1
+      memoryLimit: 3Gi
+      mountSources: true
+      env:
+        - name: GOPATH
+          # replicate the GOPATH from the plugin
+          value: /projects/.che/gopath:/projects
+        - name: GOCACHE
+          # replicate the GOCACHE from the plugin, even though the cache is not shared
+          # between the two
+          value: /tmp/.cache
+      endpoints:
+        - exposure: public
+          name: 'collatzfe'
+          protocol: http
+          targetPort: 8080
+  - name: collatz-be
+    container:
+      image: registry.redhat.io/devspaces/udi-rhel8:3.1
+      memoryLimit: 3Gi
+      mountSources: true
+      env:
+        - name: GOPATH
+          # replicate the GOPATH from the plugin
+          value: /projects/.che/gopath:/projects
+        - name: GOCACHE
+          # replicate the GOCACHE from the plugin, even though the cache is not shared
+          # between the two
+          value: /tmp/.cache
+      endpoints:
+        - exposure: public
+          name: 'collatzbe'
+          protocol: http
+          targetPort: 8081
+commands:
+  - id: run-be
+    exec:
+      component: collatz-be
+      workingDir: ${PROJECTS_ROOT}/collatz-conjecture/collatz-be
+      commandLine: ./collatz-be
+      group:
+        kind: run
+        isDefault: true
