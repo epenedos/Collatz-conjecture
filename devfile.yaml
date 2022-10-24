@@ -67,3 +67,4 @@ commands:
       commandLine: ./collatz-be
       group:
         kind: run
+        isDefault: true
