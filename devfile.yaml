@@ -4,7 +4,7 @@ metadata:
 projects:
   - git:
       remotes:
-        origin: 'https://github.com/epenedos/Collatz-conjecture.git/origin/INITIAL'
+        origin: 'https://github.com/epenedos/Collatz-conjecture.git/'
     name: collatz-conjecture
 components:
   - name: collatz-fe
