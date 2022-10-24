@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"log"
 	"net/http"
@@ -11,11 +12,24 @@ import (
 )
 
 var initnumber int64
-var html string
 var intSlice []int
-var xslice []string
+var xslice []int
 
 var allSlice []int
+
+type resultscollatz struct {
+	Value        int   `json:"value"`
+	List_results []int `json:"list_results"`
+}
+
+type JsonResponse struct {
+	Type    string         `json:"type"`
+	Data    resultscollatz `json:"data"`
+	Message string         `json:"message"`
+}
+
+var myresults resultscollatz
+var response JsonResponse
 
 func main() {
 
@@ -38,18 +52,25 @@ func Collatz(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		panic(err)
 	}
-	fmt.Println(init)
-	fmt.Fprintf(w, "<h1>%s</h1><div>%s</div>", init, "")
+
 	compute(int64(i))
-	fmt.Printf("xslice: %v\n", xslice)
+
+	myresults = resultscollatz{Value: int(initnumber), List_results: intSlice}
+	response = JsonResponse{
+		Type:    "Result",
+		Data:    myresults,
+		Message: "Sucesseful",
+	}
+	json.NewEncoder(w).Encode(response)
 
 }
 
 func compute(number int64) {
-
+	initnumber = number
 	intSlice = nil
 	xslice = nil
 	intSlice = append(intSlice, int(number))
+
 	for {
 
 		n := coll(number)
@@ -63,12 +84,9 @@ func compute(number int64) {
 	}
 
 	for i := 1; i <= len(intSlice); i++ {
-		xslice = append(xslice, fmt.Sprint(i))
+		xslice = append(xslice, i)
 	}
 
-	//fmt.Printf("intSlice: %v\n", intSlice)
-	//fmt.Printf("xslice: %v\n", len(intSlice))
-	//fmt.Println("")
 	allSlice = append(allSlice, len(intSlice))
 
 }
