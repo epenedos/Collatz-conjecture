@@ -1,0 +1,5 @@
+FROM golang AS collatz-be
+WORKDIR /src
+RUN git clone https://github.com/epenedos/Collatz-conjecture.git && cd collatz-conjecture/collatz-be
+RUN go build
+ 
