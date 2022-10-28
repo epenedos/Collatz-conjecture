@@ -3,14 +3,13 @@ package main
 import (
 	"fmt"
 	"html/template"
+	"io/ioutil"
 	"log"
 	"net/http"
 	"net/url"
 	"strconv"
-	"io/ioutil"
-
-	"github.com/go-echarts/go-echarts/v2/charts"
-	"github.com/go-echarts/go-echarts/v2/opts"
+	//"github.com/go-echarts/go-echarts/v2/charts"
+	//"github.com/go-echarts/go-echarts/v2/opts"
 )
 
 var initnumber int64
@@ -55,8 +54,6 @@ func httpserver(w http.ResponseWriter, r *http.Request) {
 	nn, err := strconv.ParseInt(params.Get("nhosts"), 10, 0)
 	initnumber = int64(nn)
 
-	
-
 	response, err := http.Get("http://localhost:8081/collatz/?init=" + params.Get("nhosts"))
 	responseData, err := ioutil.ReadAll(response.Body)
 
@@ -75,7 +72,3 @@ func httpserver(w http.ResponseWriter, r *http.Request) {
 	tpl = template.Must(template.ParseFiles("www/graph-footer.html"))
 	tpl.Execute(w, nil)
 }
-
-
-
-

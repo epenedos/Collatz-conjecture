@@ -1,0 +1,26 @@
+specVersion: 0.34.0
+name: gofunc
+runtime: go
+registry: ' ""'
+image: quay.io/epenedos/gofunc:latest
+imageDigest: sha256:af65ed39fe246cd5fdc55d13d6eb8decc433524b4f6a295c606196944c712e89
+created: 2022-10-26T07:44:30.539977+01:00
+invocation:
+  format: http
+build:
+  buildpacks:
+  - paketo-buildpacks/go-dist
+  - ghcr.io/boson-project/go-function-buildpack:tip
+  builder: pack
+  buildEnvs: []
+run:
+  volumes: []
+  envs: []
+deploy:
+  namespace: edu-collatz
+  annotations: {}
+  options: {}
+  labels: []
+  healthEndpoints:
+    liveness: /health/liveness
+    readiness: /health/readiness
