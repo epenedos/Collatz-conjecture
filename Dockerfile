@@ -1,5 +1,6 @@
 
 FROM golang AS collatz-fe
+RUN sudo chmod 777 /src
 WORKDIR /src
 RUN git clone https://github.com/epenedos/Collatz-conjecture.git 
 WORKDIR /src/Collatz-conjecture/collatz-fe
