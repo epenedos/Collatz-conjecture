@@ -1,5 +1,7 @@
 
 FROM golang AS collatz-fe
+RUN pwd
+RUN ls -lisa
 WORKDIR /src
 RUN git clone https://github.com/epenedos/Collatz-conjecture.git 
 WORKDIR /src/Collatz-conjecture/collatz-fe
