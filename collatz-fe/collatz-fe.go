@@ -53,7 +53,7 @@ func httpserver(w http.ResponseWriter, r *http.Request) {
 	params := u.Query()
 	nn, err := strconv.ParseInt(params.Get("nhosts"), 10, 0)
 	initnumber = int64(nn)
-
+	fmt.Println("http://collatz-be:8081/collatz/?init=" + params.Get("nhosts"))
 	response, err := http.Get("http://collatz-be:8081/collatz/?init=" + params.Get("nhosts"))
 	responseData, err := ioutil.ReadAll(response.Body)
 
