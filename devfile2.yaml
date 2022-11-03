@@ -17,7 +17,7 @@ components:
           value: /tmp/.cache
       endpoints:
         - exposure: public
-          name: 'collatzfe'
+          name: 'collatz-fe'
           protocol: http
           targetPort: 8080
   - name: collatz-be
@@ -35,10 +35,31 @@ components:
           value: /tmp/.cache
       endpoints:
         - exposure: public
-          name: 'collatzbe'
+          name: 'collatz-be'
           protocol: http
           targetPort: 8081
 commands:
+  - id: build-fe
+    exec:
+      component: collatz-fe
+      workingDir: ${PROJECTS_ROOT}/collatz-conjecture/collatz-fe
+      commandLine: go mod tidy; go build
+      group:
+        kind: build
+  - id: run-fe
+    exec:
+      component: collatz-fe
+      workingDir: ${PROJECTS_ROOT}/collatz-conjecture/collatz-fe
+      commandLine: ./collatz-fe
+      group:
+        kind: run
+  - id: build-be
+    exec:
+      component: collatz-be
+      workingDir: ${PROJECTS_ROOT}/collatz-conjecture/collatz-be
+      commandLine: go mod tidy; go build
+      group:
+        kind: build
   - id: run-be
     exec:
       component: collatz-be
