@@ -12,6 +12,17 @@ import (
 	//"github.com/go-echarts/go-echarts/v2/opts"
 )
 
+type resultscollatz struct {
+	Value        int   `json:"value"`
+	List_results []int `json:"list_results"`
+}
+
+type JsonResponse struct {
+	Type    string         `json:"type"`
+	Data    resultscollatz `json:"data"`
+	Message string         `json:"message"`
+}
+
 var initnumber int64
 var html string
 var intSlice []int
@@ -56,6 +67,8 @@ func httpserver(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("http://collatz-be:8081/collatz/?init=" + params.Get("nhosts"))
 	response, err := http.Get("http://collatz-be:8081/collatz/?init=" + params.Get("nhosts"))
 	responseData, err := ioutil.ReadAll(response.Body)
+	var abc resultscollatz
+	abc = responseData
 
 	//BuildGraph(w)
 	fmt.Fprintf(w, "%s", string(responseData))
