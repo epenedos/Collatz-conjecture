@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"html/template"
 	"io/ioutil"
@@ -63,15 +64,35 @@ func httpserver(w http.ResponseWriter, r *http.Request) {
 
 	params := u.Query()
 	nn, err := strconv.ParseInt(params.Get("nhosts"), 10, 0)
+	if err != nil {
+		log.Fatal(err)
+	}
 	initnumber = int64(nn)
-	fmt.Println("http://collatz-be:8081/collatz/?init=" + params.Get("nhosts"))
-	response, err := http.Get("http://collatz-be:8081/collatz/?init=" + params.Get("nhosts"))
+
+	response, err := http.Get("http://collatz-be:8081/collatz/" + params.Get("nhosts"))
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer response.Body.Close()
+
 	responseData, err := ioutil.ReadAll(response.Body)
-	var abc resultscollatz
-	abc = responseData
+	if err != nil {
+		log.Fatal(err)
+	}
+	var abc JsonResponse
+
+	json.Unmarshal(responseData, &abc)
+
+	json.NewDecoder(response.Body).Decode(&abc)
+
+	fmt.Fprintf(w, "<ol> ")
+	for i, p := range abc.Data.List_results {
+		fmt.Fprintln(w, "<li>"+strconv.Itoa(i+1)+":"+strconv.Itoa(p)+"</li>")
+	}
+	fmt.Fprintf(w, "</ol> ")
 
 	//BuildGraph(w)
-	fmt.Fprintf(w, "%s", string(responseData))
+
 	//initnumber2 := int64(nn) - 1
 	//for i := initnumber2; i > 0; i-- {
 	//	compute((i))
@@ -79,8 +100,6 @@ func httpserver(w http.ResponseWriter, r *http.Request) {
 	//}
 
 	//BuildGraphLim0(w)
-
-	fmt.Printf("response: %v\n", response)
 
 	tpl = template.Must(template.ParseFiles("www/graph-footer.html"))
 	tpl.Execute(w, nil)

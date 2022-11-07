@@ -39,7 +39,7 @@ func main() {
 	// Route handles & endpoints
 
 	// Get all movies
-	router.HandleFunc("/collatz/", Collatz).Methods("GET")
+	router.HandleFunc("/collatz/{id}", Collatz).Methods("GET")
 
 	// serve the app
 	fmt.Println("Server at 8081")
@@ -47,7 +47,7 @@ func main() {
 }
 
 func Collatz(w http.ResponseWriter, r *http.Request) {
-	init := r.FormValue("init")
+	init := mux.Vars(r)["id"]
 	i, err := strconv.ParseInt(init, 10, 64)
 	if err != nil {
 		panic(err)
@@ -59,7 +59,7 @@ func Collatz(w http.ResponseWriter, r *http.Request) {
 	response = JsonResponse{
 		Type:    "Result",
 		Data:    myresults,
-		Message: "Sucesseful",
+		Message: "Succeseful",
 	}
 	json.NewEncoder(w).Encode(response)
 
