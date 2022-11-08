@@ -1,3 +1,3 @@
 # Collatz conjecture
  
-v1
+v1.1
