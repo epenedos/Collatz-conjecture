@@ -83,7 +83,7 @@ func httpserver(w http.ResponseWriter, r *http.Request) {
 
 	json.Unmarshal(responseData, &abc)
 
-	json.NewDecoder(response.Body).Decode(&abc)
+	//json.NewDecoder(response.Body).Decode(&abc)
 
 	fmt.Fprintf(w, "<ol> ")
 	for i, p := range abc.Data.List_results {
