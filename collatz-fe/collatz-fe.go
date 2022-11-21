@@ -69,7 +69,7 @@ func httpserver(w http.ResponseWriter, r *http.Request) {
 	}
 	initnumber = int64(nn)
 
-	response, err := http.Get("http://collatz-be:8081/collatz/" + params.Get("nhosts"))
+	response, err := http.Get("http://collatz-be/collatz/" + params.Get("nhosts"))
 	if err != nil {
 		log.Fatal(err)
 	}

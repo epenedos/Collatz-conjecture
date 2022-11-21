@@ -59,7 +59,7 @@ func Collatz(w http.ResponseWriter, r *http.Request) {
 	response = JsonResponse{
 		Type:    "Result",
 		Data:    myresults,
-		Message: "Succeseful",
+		Message: "Successeful",
 	}
 	json.NewEncoder(w).Encode(response)
 
