@@ -1,4 +1,4 @@
-FROM golang AS collatz-be
+FROM go-toolset AS collatz-be
 WORKDIR /opt/app-root/src
 RUN git clone https://github.com/epenedos/Collatz-conjecture.git 
 WORKDIR /opt/app-root/src/Collatz-conjecture/collatz-be
