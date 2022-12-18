@@ -9,6 +9,7 @@ import (
 	"net/http"
 	"net/url"
 	"strconv"
+	"os"
 	//"github.com/go-echarts/go-echarts/v2/charts"
 	//"github.com/go-echarts/go-echarts/v2/opts"
 )
@@ -68,8 +69,8 @@ func httpserver(w http.ResponseWriter, r *http.Request) {
 		log.Fatal(err)
 	}
 	initnumber = int64(nn)
-
-	response, err := http.Get("http://collatz-be:8081/collatz/" + params.Get("nhosts"))
+	env:= os.Getenv("BACKEND")
+	response, err := http.Get("http://" + env + ":8081/collatz/" + params.Get("nhosts"))
 	if err != nil {
 		log.Fatal(err)
 	}
