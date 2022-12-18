@@ -70,8 +70,8 @@ func httpserver(w http.ResponseWriter, r *http.Request) {
 	}
 	initnumber = int64(nn)
 	env:= os.Getenv("BACKEND")
-	log.Fatal("http://" + env + ":8081/collatz/" + params.Get("nhosts"))
-	response, err := http.Get("http://" + env + "/collatz/" + params.Get("nhosts"))
+	
+	response, err := http.Get("http://" + env + ":8081/collatz/" + params.Get("nhosts"))
 	if err != nil {
 		log.Fatal(err)
 	}
