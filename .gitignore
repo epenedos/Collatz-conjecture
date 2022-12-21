@@ -1,6 +1,6 @@
 
-/Users/epenedos/Documents/GitHub/Collatz-conjecture/.odo/env
+.odo/env/env.yaml
 .odo/odo-file-index.json
-/collatz-be/collatz.be
-/Users/epenedos/Documents/GitHub/Collatz-conjecture/Collatz-conjecture.code-workspace
-/collatz-fe/collatz.fe
+collatz-be/collatz.be
+Collatz-conjecture.code-workspace
+collatz-fe/collatz.fe
