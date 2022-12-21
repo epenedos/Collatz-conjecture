@@ -7,6 +7,9 @@
 	"settings": {
 		"yaml.schemas": {
 			"knmsx://schema/knative": "k8smsx://loadkubernetescore/Deployment-collatz-be.yaml?ns%3Dedu-collatz%26value%3DDeployment%2Fcollatz-be%26_%3D1668015356266"
-		}
+		},
+		"githubPullRequests.ignoredPullRequestBranches": [
+			"main"
+		]
 	}
 }
