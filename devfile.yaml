@@ -15,6 +15,8 @@ components:
           # replicate the GOCACHE from the plugin, even though the cache is not shared
           # between the two
           value: /tmp/.cache
+        - name: BACKEND
+          value: localhost
       endpoints:
         - exposure: public
           name: 'collatz-fe'
