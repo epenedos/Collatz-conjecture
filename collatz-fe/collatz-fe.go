@@ -90,8 +90,12 @@ func httpserver(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, "<ol> ")
 	for i, p := range abc.Data.List_results {
 		fmt.Fprintln(w, "<li>"+strconv.Itoa(i+1)+":"+strconv.Itoa(p)+"</li>")
+		xslice = append(xslice,strconv.Itoa(i+1))
 	}
 	fmt.Fprintf(w, "</ol> ")
+
+	intSlice= abc.Data.List_results
+
 
 	//BuildGraph(w)
 
