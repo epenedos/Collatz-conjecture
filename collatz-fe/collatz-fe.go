@@ -98,11 +98,11 @@ func httpserver(w http.ResponseWriter, r *http.Request) {
 
     BuildGraph(w)
 
-	initnumber2 := int64(nn) - 1
-	for i := initnumber2; i > 0; i-- {
-		compute((i))
+	//initnumber2 := int64(nn) - 1
+	//for i := initnumber2; i > 0; i-- {
+	//	compute((i))
 
-	}
+	//}
 
 	BuildGraphLim0(w)
 
