@@ -28,8 +28,6 @@ func generateAllLineItems() []opts.LineData {
 }
 
 
-
-
 func BuildGraph(w http.ResponseWriter) {
 
 	line := charts.NewLine()
