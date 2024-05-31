@@ -1,0 +1,38 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: workspace-userdata-gitconfig-configmap
+  namespace: developer-devspaces
+  uid: a0f96232-48f4-41ed-bc28-f400c34ff2b1
+  resourceVersion: '3440530'
+  creationTimestamp: '2024-05-31T00:44:47Z'
+  labels:
+    controller.devfile.io/mount-to-devworkspace: 'true'
+    controller.devfile.io/watch-configmap: 'true'
+  annotations:
+    controller.devfile.io/mount-as: subpath
+    controller.devfile.io/mount-path: /etc/
+  managedFields:
+    - manager: Mozilla
+      operation: Update
+      apiVersion: v1
+      time: '2024-05-31T00:44:47Z'
+      fieldsType: FieldsV1
+      fieldsV1:
+        'f:data':
+          .: {}
+          'f:gitconfig': {}
+        'f:metadata':
+          'f:annotations':
+            .: {}
+            'f:controller.devfile.io/mount-as': {}
+            'f:controller.devfile.io/mount-path': {}
+          'f:labels':
+            .: {}
+            'f:controller.devfile.io/mount-to-devworkspace': {}
+            'f:controller.devfile.io/watch-configmap': {}
+data:
+  gitconfig: |-
+    [user] 
+      name = ep 
+      email = epenedos@icloud.com

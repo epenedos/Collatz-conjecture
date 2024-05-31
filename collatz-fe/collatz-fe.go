@@ -87,12 +87,14 @@ func httpserver(w http.ResponseWriter, r *http.Request) {
 
 	//json.NewDecoder(response.Body).Decode(&abc)
 
-	fmt.Fprintf(w, "<ol> ")
-	for i, p := range abc.Data.List_results {
-		fmt.Fprintln(w, "<li>"+strconv.Itoa(i+1)+":"+strconv.Itoa(p)+"</li>")
+	// fmt.Fprintf(w, "<ol> ")
+	for i := range abc.Data.List_results {
+		// fmt.Fprintln(w, "<li>"+strconv.Itoa(i+1)+":"+strconv.Itoa(p)+"</li>")
 		xslice = append(xslice,strconv.Itoa(i+1))
+		
 	}
-	fmt.Fprintf(w, "</ol> ")
+	
+	// fmt.Fprintf(w, "</ol> ")
 
 	intSlice= abc.Data.List_results
 
